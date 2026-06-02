@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeClipboard</title>
+  <link rel="stylesheet" href="src/css/main.css">
+  <link rel="stylesheet" href="src/css/history.css">
+  <link rel="stylesheet" href="src/css/settings.css">
+
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <h1 class="header__title">MeClipboard</h1>
+      <button class="header__settings-btn" id="settingsBtn" title="设置">⚙</button>
+    </header>
+
+    <!-- 搜索栏 -->
+    <div class="search-bar">
+      <input
+        type="text"
+        class="search-bar__input"
+        id="searchInput"
+        placeholder="搜索剪贴板历史..."
+        autocomplete="off"
+      >
+    </div>
+
+    <!-- 卡片列表 -->
+    <div class="card-list" id="cardList"></div>
+
+    <!-- 空状态提示 -->
+    <div class="main" id="placeholder">
+      <p class="main__placeholder">还没有记录</p>
+      <p class="main__hint">复制文字或截图后，内容会自动出现在这里</p>
+    </div>
+  </div>
+
+  <!-- 设置面板 -->
+  <div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
+  <div class="settings-panel" id="settingsPanel">
+    <div class="settings-panel__header">
+      <span class="settings-panel__title">设置</span>
+      <button class="settings-panel__close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="settings-panel__body">
+      <div class="setting-group">
+        <label class="setting-group__label" for="retentionDays">保留天数</label>
+        <p class="setting-group__desc">超过此天数的记录将被自动清理（置顶项不会删除）</p>
+        <input type="number" class="setting-group__input" id="retentionDays" min="0" max="365">
+      </div>
+      <div class="setting-group">
+        <label class="setting-group__label" for="storageCap">存储上限 (MB)</label>
+        <p class="setting-group__desc">总占用空间超过上限时，清理最旧的未置顶项</p>
+        <input type="number" class="setting-group__input" id="storageCap" min="10" max="5000">
+      </div>
+      <div class="setting-group">
+        <div class="setting-group__toggle">
+          <span class="setting-group__label">开机自启</span>
+          <label class="toggle">
+            <input type="checkbox" class="toggle__input" id="autostartToggle">
+            <span class="toggle__slider"></span>
+          </label>
+        </div>
+        <p class="setting-group__desc">启动 Windows 时自动运行 MeClipboard</p>
+      </div>
+      <div class="setting-group">
+        <label class="setting-group__label">存储状态</label>
+        <div class="storage-stats">
+          <p class="storage-stats__text">
+            记录数: <span id="statItemCount">0</span><br>
+            占用空间: <span id="statTotalSize">0 B</span>
+          </p>
+          <div class="storage-stats__bar">
+            <div class="storage-stats__bar-fill" id="statUsageBar" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="settings-panel__save" onclick="saveSettings()">保存设置</button>
+  </div>
+
+  <script src="src/js/settings.js"></script>
+  <script src="src/js/history.js"></script>
+  <script src="src/js/main.js"></script>
+</body>
+</html>

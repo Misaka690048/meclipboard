@@ -1,0 +1,218 @@
+/* ===== 卡片列表样式 ===== */
+
+/* --- 搜索栏 --- */
+.search-bar {
+  padding: 8px 12px;
+  flex-shrink: 0;
+}
+
+.search-bar__input {
+  width: 100%;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #DEB887;
+  border-radius: 8px;
+  background: #FFFFFF;
+  font-size: 14px;
+  font-family: inherit;
+  color: #3E2723;
+  outline: none;
+  transition: border-color 150ms ease;
+}
+
+.search-bar__input:focus {
+  border-color: #D2B48C;
+}
+
+.search-bar__input::placeholder {
+  color: #A1887F;
+}
+
+/* --- 卡片列表容器 --- */
+.card-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.card-list::-webkit-scrollbar-thumb {
+  background: #DEB887;
+  border-radius: 2px;
+}
+
+/* --- 单张卡片 --- */
+.card {
+  position: relative;
+  background: #FAF0E6;
+  border: 1px solid #DEB887;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  transition: background-color 150ms ease, box-shadow 150ms ease, transform 300ms ease, opacity 300ms ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  background: #F5E6D3;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+/* 置顶卡片 */
+.card--pinned {
+  border-left: 4px solid #CD853F;
+}
+
+.card--pinned .card__pin-icon {
+  opacity: 1;
+  color: #CD853F;
+}
+
+/* 删除动画 */
+.card--removing {
+  transform: translateX(120%);
+  opacity: 0;
+}
+
+/* 回贴闪烁 */
+.card--copied {
+  animation: copy-flash 500ms ease;
+}
+
+@keyframes copy-flash {
+  0%, 100% { background: #FAF0E6; }
+  50% { background: #D4E8D0; }
+}
+
+/* --- 卡片内容 --- */
+.card__content {
+  margin-bottom: 4px;
+}
+
+.card__text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #3E2723;
+  white-space: pre-wrap;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card__image {
+  max-height: 120px;
+  max-width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- 卡片底部时间 --- */
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card__time {
+  font-size: 11px;
+  font-weight: 300;
+  color: #8D6E63;
+}
+
+/* --- 操作按钮 --- */
+.card__actions {
+  display: flex;
+  gap: 4px;
+}
+
+.card__pin-icon,
+.card__delete-btn {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  color: #A1887F;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 150ms ease, background 150ms ease;
+  opacity: 0;
+}
+
+.card:hover .card__pin-icon,
+.card:hover .card__delete-btn {
+  opacity: 1;
+}
+
+.card--pinned .card__pin-icon {
+  opacity: 1;
+}
+
+.card__pin-icon:hover {
+  color: #CD853F;
+  background: rgba(0,0,0,0.05);
+}
+
+.card__delete-btn:hover {
+  color: #E57373;
+  background: rgba(0,0,0,0.05);
+}
+
+/* --- 撤销提示 --- */
+.undo-toast {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  padding: 10px 16px;
+  background: #3E2723;
+  color: #FFF8F0;
+  border-radius: 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 100;
+  animation: toast-in 300ms ease;
+}
+
+.undo-toast--hiding {
+  animation: toast-out 300ms ease forwards;
+}
+
+@keyframes toast-in {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toast-out {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(20px); opacity: 0; }
+}
+
+.undo-toast__link {
+  color: #D2B48C;
+  cursor: pointer;
+  font-weight: 500;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.undo-toast__link:hover {
+  color: #F5DEB3;
+}

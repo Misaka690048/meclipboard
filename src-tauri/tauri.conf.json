@@ -1,0 +1,44 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "meclipboard",
+  "version": "0.1.0",
+  "identifier": "com.meclipboard.app",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1420",
+    "beforeDevCommand": "npx http-server . -p 1420 -c-1 --cors",
+    "beforeBuildCommand": "powershell -Command \"Copy-Item -Path '../index.html' -Destination '../dist/index.html' -Force; Copy-Item -Path '../src' -Destination '../dist/src' -Recurse -Force\""
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "MeClipboard",
+        "width": 420,
+        "height": 640,
+        "minWidth": 320,
+        "minHeight": 400,
+        "resizable": true,
+        "fullscreen": false,
+        "visible": false
+      }
+    ],
+    "withGlobalTauri": true,
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "android": {
+      "debugApplicationIdSuffix": ".debug"
+    }
+  }
+}
